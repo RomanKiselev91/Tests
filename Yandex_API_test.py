@@ -2,7 +2,7 @@ from unittest import TestCase, main
 import requests
 
 
-access_token = 'y0__xC08su4BhjblgMg0cj24BJE4l5nQiqWXb8TVb-ViZH8oMP5Aw'
+access_token = ''
 headers = {"Authorization": f"OAuth {access_token}"}
 URL = "https://cloud-api.yandex.net/v1/disk/resources"
 
