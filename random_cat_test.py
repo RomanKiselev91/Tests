@@ -34,6 +34,7 @@ class TestCreateFolder(TestCase):
         self.assertEqual(create_folder('CAT'), meta_inf(create_folder('CAT'))['name'])
 
 class TestCheckFile(TestCase):
+    save_disk()
     def check_file(self):
         check = requests.get(f'{DISK_API_URL}/resources', headers=headers, params={'path': f'{'disk:/CAT'}/CAT.jpg'})
         self.assertEqual(check.status_code, 200)
