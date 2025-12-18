@@ -1,11 +1,3 @@
-
-'''Напиши автотест на Яндекс.диск
-1. Создание папки
-2. Загрузка туда файла по ссылке(https://cataas.com/) любого кота
-3. Проверить что файл загрузился
-4. Работаем через апи.
-5. Всё это залить на гитхаб.'''
-
 from unittest import TestCase, main
 import requests
 
@@ -22,25 +14,24 @@ def create_folder(path):
     requests.put(f'{URL}?path={path}', headers=headers)
     return path
 
-folder = create_folder('CAT')
 
 def save_disk():
     response = requests.post(URL_UPLOAD, headers=headers,
-                                params={'path': f'{folder}/{'CAT'+'.jpg'}', 'url': f'{URL_image + 'CAT'}'})
+                                params={'path': f'{create_folder('CAT')}/{'CAT'+'.jpg'}', 'url': f'{URL_image + 'CAT'}'})
     return response
-save_disk()
+
 
 
 def meta_inf(path):
     resp = requests.get(f'{URL}?path={path}', headers=headers)
     resp.raise_for_status()
     return resp.json()
-metainf = meta_inf(folder)
+
 
 
 class TestCreateFolder(TestCase):
     def test_create_folder(self):
-        self.assertEqual(folder, metainf['name'])
+        self.assertEqual(create_folder('CAT'), meta_inf(create_folder('CAT'))['name'])
 
 class TestCheckFile(TestCase):
     def check_file(self):
@@ -49,6 +40,3 @@ class TestCheckFile(TestCase):
 
 if __name__== '__main__':
     main()
-
-
-
